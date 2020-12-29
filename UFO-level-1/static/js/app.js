@@ -35,3 +35,21 @@ ufos.forEach((ufo) => {
     cell.text(ufo.comments)
 
 });
+
+// Select the button
+var button = d3.select("#filter-btn");
+
+// Select the form
+var form = d3.select("#ufo-form");
+
+// Get trigger events
+button.on("click", searchDate);
+form.on("submit", searchDate)
+
+// Call the search function when event is triggered
+function searchDate() {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+    
+    console.log("initiated search");
+}
