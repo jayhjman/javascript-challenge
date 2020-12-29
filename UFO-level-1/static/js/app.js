@@ -1,5 +1,5 @@
 //
-//   UFO Application Code
+//   UFO Level 1 Application Code
 //
 
 // Rename data to something more human readable 
@@ -9,32 +9,43 @@ var ufos = data;
 var tbody = d3.select("tbody");
 
 // Do the initial display of all UFO data
-ufos.forEach((ufo) => {
-      
-    var row = tbody.append("tr");
+function displayUfos(ufosDisplay) {
 
-    var cell = row.append("td")
-    cell.text(ufo.datetime)
+    // Clear the tbody element of prevous output
+    tbody.text("");
 
-    cell = row.append("td")
-    cell.text(ufo.city)
+    // loop through each element to display in the table
+    ufosDisplay.forEach((ufo) => {
+        
+        var row = tbody.append("tr");
 
-    cell = row.append("td")
-    cell.text(ufo.state)
+        var cell = row.append("td")
+        cell.text(ufo.datetime)
 
-    cell = row.append("td")
-    cell.text(ufo.country)
+        cell = row.append("td")
+        cell.text(ufo.city)
 
-    cell = row.append("td")
-    cell.text(ufo.shape)
+        cell = row.append("td")
+        cell.text(ufo.state)
 
-    cell = row.append("td")
-    cell.text(ufo.durationMinutes)
+        cell = row.append("td")
+        cell.text(ufo.country)
 
-    cell = row.append("td")
-    cell.text(ufo.comments)
+        cell = row.append("td")
+        cell.text(ufo.shape)
 
-});
+        cell = row.append("td")
+        cell.text(ufo.durationMinutes)
+
+        cell = row.append("td")
+        cell.text(ufo.comments)
+
+    });
+
+};
+
+// After initial load display all UFOs
+displayUfos(ufos);
 
 // Select the button
 var button = d3.select("#filter-btn");
@@ -66,5 +77,7 @@ function searchDate() {
     var filteredUfos = ufos.filter(ufo => ufo.datetime === inputValue);
 
     console.log(filteredUfos);
+
+    displayUfos(filteredUfos);
 
 }
