@@ -52,4 +52,19 @@ function searchDate() {
     d3.event.preventDefault();
     
     console.log("initiated search");
+
+    // Select the input element and get the raw HTML node
+    var inputElement = d3.select("#datetime");
+
+    // Get the value property of the input element
+    var inputValue = inputElement.property("value");
+
+    // log the input
+    console.log(inputValue);
+    
+    // filter based on input value
+    var filteredUfos = ufos.filter(ufo => ufo.datetime === inputValue);
+
+    console.log(filteredUfos);
+
 }
