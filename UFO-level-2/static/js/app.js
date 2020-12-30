@@ -5,14 +5,14 @@
 // Rename data to something more human readable 
 var ufos = data;
 
-// grab a reference to the table body we want to change
-var tbody = d3.select("tbody");
-
 //
 // Displays the filtered or unfiltered UFO data
 //
 
 function displayUfos(ufosDisplay) {
+
+    // grab a reference to the table body we want to change
+    var tbody = d3.select("tbody");
 
     // Clear the tbody element of prevous output
     tbody.text("");
@@ -45,21 +45,7 @@ function displayUfos(ufosDisplay) {
 
     });
 
-};
-
-// After initial load display all UFOs
-displayUfos(ufos);
-
-// Select the button
-var button = d3.select("#filter-btn");
-
-// Select the form
-var form = d3.select("#ufo-form");
-
-// Get trigger events
-button.on("click", searchInputs);
-form.on("submit", searchInputs);
-
+}
 
 //
 // Check to see if inputValue is present and matched the
@@ -144,3 +130,27 @@ function searchInputs() {
     displayUfos(finalUfoList);
 
 }
+
+// Select the button
+var button = d3.select("#filter-btn");
+
+// Select the form
+var form = d3.select("#ufo-form");
+
+// Get trigger events
+button.on("click", searchInputs);
+form.on("submit", searchInputs);
+
+//
+// We want the enter button on all inputs fields to 
+// trigger a search
+//
+d3.selectAll("input").on("keypress", function() {
+    // Look for enter button, if so then call search
+    if (d3.event.keyCode === 13) {
+        searchInputs();
+    }
+});
+
+// After initial load display all UFOs
+displayUfos(ufos);
