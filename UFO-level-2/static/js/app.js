@@ -54,30 +54,58 @@ var button = d3.select("#filter-btn");
 var form = d3.select("#ufo-form");
 
 // Get trigger events
-button.on("click", searchDate);
-form.on("submit", searchDate);
+button.on("click", searchInputs);
+form.on("submit", searchInputs);
 
-// Call the search function when event is triggered
-function searchDate() {
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
+function isValuePresent(element, ufoValue) {
     
-    console.log("initiated search");
+    var valuePresent = true;
 
     // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+    var inputElement = d3.select(element);
 
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
 
-    // log the input
-    console.log(inputValue);
+    // If input is present and doesn't match return false
+    if (inputValue.length > 0 && (inputValue != ufoValue)) {
+        valuePresent = false;
+    }
     
-    // filter based on input value
-    var filteredUfos = ufos.filter(ufo => ufo.datetime === inputValue);
+    console.log(`input value: ${inputValue} is ${valuePresent}`)
 
-    console.log(filteredUfos);
+    return valuePresent;
+}
 
-    displayUfos(filteredUfos);
+function checkInputValues(ufo) {
+
+    // match the filtered elements if all true then show
+    var matched = true;
+
+    // Check each of the elements one at a time
+    if ((matched === true) && !isValuePresent("#datetime", ufo.datetime)) {
+        matched = false;
+    }
+
+    if ((matched === true) && !isValuePresent("#city", ufo.city)) {
+        matched = false;
+    }
+
+    if ((matched === true) && !isValuePresent("#state", ufo.state)) {
+        matched = false;
+    }
+
+    return matched;
+}
+
+// Call the search function when event is triggered
+function searchInputs() {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+    
+    // filter based on input values
+    var finalUfoList = ufos.filter(ufo => checkInputValues(ufo));
+
+    displayUfos(finalUfoList);
 
 }
