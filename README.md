@@ -12,13 +12,17 @@
 
   - [`UFO-level-1/static/js/app.js`](UFO-level-1/static/js/app.js) - The main level 1 javascript file that has code that displays and filters based upon button and form events
 
+  - [`UFO-level-1/static/js/data.js`](UFO-level-1/static/js/data.js) - The UFO data set
+
 - Level 2
 
   - [` UFO-level-2/index.html`](UFO-level-2/index.html) - Level 2 HTML page demonstrating a simple data load and filters on date/time, city, state, shape, and duration.
 
   - [`UFO-level-2/static/css/style.css`](UFO-level-2/static/css/style.css) - The CSS level 2 style sheet needed to apply custom formatting outside of bootstrap
 
-  - [`UFO-level-2/static/js/app.js`](UFO-level-2/static/js/app.js) - The main level 2 javascript file that has code that displays and filters based upon button, form, input, and dropdown events. The filtering in level 2 provides both manual input, as well as, drop downs.
+  - [`UFO-level-2/static/js/app.js`](UFO-level-2/static/js/app.js) - The main level 2 javascript file that has code that displays and filters based upon button, form, input, and dropdown events. The filtering in level 2 provides both manual input, as well as, drop downs
+
+  - [`UFO-level-2/static/js/data.js`](UFO-level-2/static/js/data.js) - The UFO data set
 
 ## Results
 
@@ -28,9 +32,9 @@
 
 1. Clone the [git repository](https://github.com/jayhjman/javascript-challenge) for this project
 
-1. For Level 1 go the the directory in the clone repository [` UFO-level-1/`](UFO-level-1/) and open the [`index.html`](UFO-level-1/index.html)
+1. For Level 1 go the the directory in the cloned repository [` UFO-level-1/`](UFO-level-1/) and open the [`index.html`](UFO-level-1/index.html)
 
-1. For Level 2 go the the directory in the clone repository [` UFO-level-2/`](UFO-level-2/) and open the [`index.html`](UFO-level-2/index.html)
+1. For Level 2 go the the directory in the cloned repository [` UFO-level-2/`](UFO-level-2/) and open the [`index.html`](UFO-level-2/index.html)
 
 ## Author
 
