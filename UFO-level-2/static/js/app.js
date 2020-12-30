@@ -76,6 +76,11 @@ function isValuePresent(element, ufoValue) {
     return valuePresent;
 }
 
+//
+// Check the dropdown elements to see if input selected was
+// "all", if so display all valid values
+//
+
 function isAll(element) {
 
      // Select the input element and get the raw HTML node
@@ -104,7 +109,9 @@ function checkInputValues(ufo) {
         matched = false;
     }
 
-    if ((matched === true) && !isValuePresent("#city", ufo.city)) {
+    if ((matched === true) && 
+      !isAll("#city") && 
+      !isValuePresent("#city", ufo.city)) {
         matched = false;
     }
 
@@ -168,9 +175,18 @@ d3.selectAll("input").on("keypress", function() {
     }
 });
 
+//
+// Catch the change event on the select
+//
+
 function onChange(){
     searchInputs()
 }
+
+//
+// Create dropdowns based on the element name and values
+// in the UFO data
+//
 
 function createDropdown(element, values) {
 
@@ -187,6 +203,8 @@ function createDropdown(element, values) {
     dropdown.on('change', onChange);
 }
 
+// Finish populating the drop downs in the HTML
+createDropdown("#city", [...new Set(ufos.map(ufo => ufo.city))].sort());
 createDropdown("#state", [...new Set(ufos.map(ufo => ufo.state))].sort());
 createDropdown("#shape", [...new Set(ufos.map(ufo => ufo.shape))].sort());
 
