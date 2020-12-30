@@ -1,5 +1,5 @@
 //
-//   UFO Level 1 Application Code
+//   UFO Level 2 Application Code
 //
 
 // Rename data to something more human readable 
@@ -8,7 +8,10 @@ var ufos = data;
 // grab a reference to the table body we want to change
 var tbody = d3.select("tbody");
 
-// Do the initial display of all UFO data
+//
+// Displays the filtered or unfiltered UFO data
+//
+
 function displayUfos(ufosDisplay) {
 
     // Clear the tbody element of prevous output
@@ -57,6 +60,16 @@ var form = d3.select("#ufo-form");
 button.on("click", searchInputs);
 form.on("submit", searchInputs);
 
+
+//
+// Check to see if inputValue is present and matched the
+// UFO object value that is passed
+//
+// A blank value is equivalent to selecting all values for
+// that UFO attribute and returns a "value is present" 
+// (true)
+//
+
 function isValuePresent(element, ufoValue) {
     
     var valuePresent = true;
@@ -72,10 +85,17 @@ function isValuePresent(element, ufoValue) {
         valuePresent = false;
     }
     
-    console.log(`input value: ${inputValue} is ${valuePresent}`)
+    //console.log(`input value: ${inputValue} is ${valuePresent}`)
 
     return valuePresent;
 }
+
+//
+// Cycle through all the filter inputs to see if any match
+//
+// Remember a blank of missing input value means I want all
+// possible values for that UFO attribute 
+//
 
 function checkInputValues(ufo) {
 
@@ -95,17 +115,32 @@ function checkInputValues(ufo) {
         matched = false;
     }
 
+    if ((matched === true) && !isValuePresent("#shape", ufo.shape)) {
+        matched = false;
+    }
+
+    if ((matched === true) && !isValuePresent("#duration", ufo.durationMinutes)) {
+        matched = false;
+    }
+
+    // pass back state to filter 
     return matched;
+
 }
 
+//
 // Call the search function when event is triggered
+//
+
 function searchInputs() {
+
     // Prevent the page from refreshing
     d3.event.preventDefault();
     
     // filter based on input values
     var finalUfoList = ufos.filter(ufo => checkInputValues(ufo));
 
+    // display the final list of UFOs after the filter
     displayUfos(finalUfoList);
 
 }
