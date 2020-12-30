@@ -76,6 +76,17 @@ function isValuePresent(element, ufoValue) {
     return valuePresent;
 }
 
+function isAll(element) {
+
+     // Select the input element and get the raw HTML node
+    var inputElement = d3.select(element);
+
+    // Get the value property of the input element
+    var inputValue = inputElement.property("value");
+
+    return inputValue == 'all';
+}
+
 //
 // Cycle through all the filter inputs to see if any match
 //
@@ -101,7 +112,9 @@ function checkInputValues(ufo) {
         matched = false;
     }
 
-    if ((matched === true) && !isValuePresent("#shape", ufo.shape)) {
+    if ((matched === true) && 
+        !isAll("#shape") && 
+        !isValuePresent("#shape", ufo.shape)) {
         matched = false;
     }
 
@@ -131,6 +144,12 @@ function searchInputs() {
 
 }
 
+function onchange() {
+   selectValue = d3.select(this).property('value')
+   console.log(selectValue); 
+   searchInputs();
+}
+
 // Select the button
 var button = d3.select("#filter-btn");
 
@@ -151,6 +170,23 @@ d3.selectAll("input").on("keypress", function() {
         searchInputs();
     }
 });
+
+var uniqueShapes = [...new Set(ufos.map(ufo => ufo.shape))].sort();
+
+console.log(uniqueShapes);
+
+var shapeDropdown = d3.select("#shape");
+
+var options = shapeDropdown
+    .selectAll('option')
+    .data(uniqueShapes).enter()
+    .append('option')
+      .text(function(d) { return d; })
+      .attr("value", function (d) {
+        return d;});
+      
+shapeDropdown.on('change', onchange)
+
 
 // After initial load display all UFOs
 displayUfos(ufos);
