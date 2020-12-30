@@ -108,13 +108,15 @@ function checkInputValues(ufo) {
         matched = false;
     }
 
-    if ((matched === true) && !isValuePresent("#state", ufo.state)) {
+    if ((matched === true) && 
+      !isAll("#state") && 
+      !isValuePresent("#state", ufo.state)) {
         matched = false;
     }
 
     if ((matched === true) && 
-        !isAll("#shape") && 
-        !isValuePresent("#shape", ufo.shape)) {
+      !isAll("#shape") && 
+      !isValuePresent("#shape", ufo.shape)) {
         matched = false;
     }
 
@@ -144,11 +146,6 @@ function searchInputs() {
 
 }
 
-function onchange() {
-   selectValue = d3.select(this).property('value')
-   console.log(selectValue); 
-   searchInputs();
-}
 
 // Select the button
 var button = d3.select("#filter-btn");
@@ -171,22 +168,27 @@ d3.selectAll("input").on("keypress", function() {
     }
 });
 
-var uniqueShapes = [...new Set(ufos.map(ufo => ufo.shape))].sort();
+function onChange(){
+    searchInputs()
+}
 
-console.log(uniqueShapes);
+function createDropdown(element, values) {
 
-var shapeDropdown = d3.select("#shape");
+    var dropdown = d3.select(element);
 
-var options = shapeDropdown
-    .selectAll('option')
-    .data(uniqueShapes).enter()
-    .append('option')
-      .text(function(d) { return d; })
-      .attr("value", function (d) {
-        return d;});
-      
-shapeDropdown.on('change', onchange)
+    var options = dropdown
+        .selectAll('option')
+        .data(values).enter()
+        .append('option')
+          .text(function(d) { return d; })
+          .attr("value", function (d) {
+            return d;});
+          
+    dropdown.on('change', onChange);
+}
 
+createDropdown("#state", [...new Set(ufos.map(ufo => ufo.state))].sort());
+createDropdown("#shape", [...new Set(ufos.map(ufo => ufo.shape))].sort());
 
 // After initial load display all UFOs
 displayUfos(ufos);
