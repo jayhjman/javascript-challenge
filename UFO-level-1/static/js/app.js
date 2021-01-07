@@ -2,7 +2,7 @@
 //   UFO Level 1 Application Code
 //
 
-// Rename data to something more human readable 
+// Rename data to something more human readable
 var ufos = data;
 
 // grab a reference to the table body we want to change
@@ -10,39 +10,35 @@ var tbody = d3.select("tbody");
 
 // Do the initial display of all UFO data
 function displayUfos(ufosDisplay) {
+  // Clear the tbody element of prevous output
+  tbody.text("");
 
-    // Clear the tbody element of prevous output
-    tbody.text("");
+  // loop through each element to display in the table
+  ufosDisplay.forEach((ufo) => {
+    var row = tbody.append("tr");
 
-    // loop through each element to display in the table
-    ufosDisplay.forEach((ufo) => {
-        
-        var row = tbody.append("tr");
+    var cell = row.append("td");
+    cell.text(ufo.datetime);
 
-        var cell = row.append("td")
-        cell.text(ufo.datetime)
+    cell = row.append("td");
+    cell.text(ufo.city);
 
-        cell = row.append("td")
-        cell.text(ufo.city)
+    cell = row.append("td");
+    cell.text(ufo.state);
 
-        cell = row.append("td")
-        cell.text(ufo.state)
+    cell = row.append("td");
+    cell.text(ufo.country);
 
-        cell = row.append("td")
-        cell.text(ufo.country)
+    cell = row.append("td");
+    cell.text(ufo.shape);
 
-        cell = row.append("td")
-        cell.text(ufo.shape)
+    cell = row.append("td");
+    cell.text(ufo.durationMinutes);
 
-        cell = row.append("td")
-        cell.text(ufo.durationMinutes)
-
-        cell = row.append("td")
-        cell.text(ufo.comments)
-
-    });
-
-};
+    cell = row.append("td");
+    cell.text(ufo.comments);
+  });
+}
 
 // After initial load display all UFOs
 displayUfos(ufos);
@@ -55,29 +51,28 @@ var form = d3.select("#ufo-form");
 
 // Get trigger events
 button.on("click", searchDate);
-form.on("submit", searchDate)
+form.on("submit", searchDate);
 
 // Call the search function when event is triggered
 function searchDate() {
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-    
-    console.log("initiated search");
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
 
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+  // console.log("initiated search");
 
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
+  // Select the input element and get the raw HTML node
+  var inputElement = d3.select("#datetime");
 
-    // log the input
-    console.log(inputValue);
-    
-    // filter based on input value
-    var filteredUfos = ufos.filter(ufo => ufo.datetime === inputValue);
+  // Get the value property of the input element
+  var inputValue = inputElement.property("value");
 
-    console.log(filteredUfos);
+  // log the input
+  // console.log(inputValue);
 
-    displayUfos(filteredUfos);
+  // filter based on input value
+  var filteredUfos = ufos.filter((ufo) => ufo.datetime === inputValue);
 
+  // console.log(filteredUfos);
+
+  displayUfos(filteredUfos);
 }
